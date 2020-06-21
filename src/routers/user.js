@@ -28,7 +28,12 @@ router.get('/users/:id', async(req, res) => {
 
     try {
         const user = await User.findById(_id);
-        res.status(404).send(user);
+
+        if (!user) {
+            return res.status(404).send();
+        }
+
+        res.send(user);
     } catch (error) {
         res.status(500).send();
     }
